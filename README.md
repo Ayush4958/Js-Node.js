@@ -26,6 +26,7 @@ This lecture introduces basic file system operations in Node.js using the built-
 ---
 
 # 📘 Lecture 2 – Creating a Basic HTTP Server in Node.js
+
 This lecture demonstrates how to create a basic HTTP server using Node.js' built-in http and url modules.
 
 ### 🔧 Key Concepts Used:
@@ -51,3 +52,24 @@ This lecture demonstrates how to create a basic HTTP server using Node.js' built
 - Any other path → 404 message
 
 --- 
+
+# 📘 Lecture 3 – Introduction to Express.js
+
+In this lecture, you set up a basic web server using the popular Express.js framework for Node.js. It simplifies routing and handling HTTP requests.
+
+### 🔧 Key Concepts Used:
+- express() – Initializes the express app
+
+- app.get() – Handles GET requests on specific routes
+
+- req.query – Accesses query parameters from the URL
+
+- res.send() – Sends a response to the client
+
+### 🌐 What This Server Does:
+
+Responds to:
+
+- / → Returns a static message from the Home page
+
+- /about?name=YourName → Returns a dynamic message from the About page using query param name
