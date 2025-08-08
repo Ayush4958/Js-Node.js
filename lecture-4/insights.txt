@@ -1,10 +1,14 @@
 REST API – JSON
 
-GET /users – List User as HTML Document
-GET /api/users – List User as HTML Document
+GET /users – List User as HTML Document - Done
+GET /api/users – List User as HTML Document - Done
 
-GET /api/users/1 – Get the user with ID 1
-GET /api/users/2 – Get the user with ID 2
+Dynamic Path Parameter
+/api/users/:id
+:id :- dynamic
+
+GET /api/users/1 – Get the user with ID 1 - Done
+GET /api/users/2 – Get the user with ID 2 - Done
 
 POST /api/users – Create new user
 
