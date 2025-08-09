@@ -73,3 +73,22 @@ Responds to:
 - / → Returns a static message from the Home page
 
 - /about?name=YourName → Returns a dynamic message from the About page using query param name
+
+---
+
+# 📘 Lecture 4 – RESTful API using Express and JSON File Storage
+
+This lecture demonstrates how to build a fully functional REST API using Express.js, performing CRUD operations on a mock user database stored in a local JSON file (MOCK_DATA.json).
+
+### 🔧 Features Covered
+- ✅ Middleware with express.urlencoded()
+
+- ✅ Serving HTML using template literals
+
+- ✅ REST API endpoints:
+
+- GET /api/users – Get all users
+
+- GET /api/users/:id – Get single user by ID
+
+- POST /api/users/:id – Add a new user and save to MOCK_DATA.json
