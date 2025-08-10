@@ -78,17 +78,22 @@ Responds to:
 
 # 📘 Lecture 4 – RESTful API using Express and JSON File Storage
 
-This lecture demonstrates how to build a fully functional REST API using Express.js, performing CRUD operations on a mock user database stored in a local JSON file (MOCK_DATA.json).
+This lecture demonstrates building a RESTful API with Express.js, performing CRUD operations on a mock user database stored in MOCK_DATA.json, and implementing a custom logging middleware from scratch.
 
-### 🔧 Features Covered
-- ✅ Middleware with express.urlencoded()
 
-- ✅ Serving HTML using template literals
+- ✅ Middleware with express.urlencoded() for form data parsing
+
+- ✅ Custom middleware to log every incoming request with:
+
+- Date
+- Time
+- Path accessed
+- Logs stored in logs.txt
 
 - ✅ REST API endpoints:
 
 - GET /api/users – Get all users
+- GET /api/users/:id – Get a single user by ID
+- POST /api/users/:id – Add a new user and save to JSON
 
-- GET /api/users/:id – Get single user by ID
-
-- POST /api/users/:id – Add a new user and save to MOCK_DATA.json
+- ✅ HTML rendering of user list with template literals
