@@ -2,10 +2,43 @@ const express = require('express')
 const fs = require('fs')
 const app = express()
 const PORT = 2000
-const users = require('./MOCK_DATA.json')
+// const users = require('./MOCK_DATA.json')
+const mongoose = require('mongoose')
 
 // Middleware - plugins
 app.use(express.urlencoded({ extended: false }))
+
+// Mongoose connection
+mongoose.connect('mongodb://localhost:27017/firtsconnection')
+.then(()=>{ console.log("Mongoose is connected sucessfully")})
+.catch((err) =>{ console.log("Mongoose connection error occured")})
+
+// Creating a schema
+const userschema = new mongoose.Schema({
+    first_name:{
+        type : String,
+        required : true
+    },
+    last_name:{
+        type : String,
+    },
+    email:{
+        type : String,
+        required : true,
+        unique : true,
+    },
+    job_title:{
+        type : String,
+    },
+    gender:{
+        type : String,
+    },
+
+
+})
+
+// creating a model
+const User = mongoose.model('user' , userschema)
 
 // Middleware from scratch
 app.use((req, res, next) => {
@@ -20,51 +53,61 @@ app.use((req, res, next) => {
 })
 
 
-app.get('/users', (req, res) => {
+app.get('/users', async (req, res) => {
+    const alluser = await User.find({});
     const html =
         `
     <ul> 
-        ${users.map(user => `<li> ${user.first_name} </li>`).join("")}
+        ${alluser.map(user => `<li> ${user.first_name} - ${user.email} </li>`).join("")}
     </ul>
     `
     return res.send(html)
 })
 
+app.post('/api/users/:id', async (req, res) => {
+    // ToDo : Create a new user
+    const body = req.body
+    if (!body.first_name || !body.last_name || !body.email || !body.job_title || !body.gender) {
+        return res.status(400).json({ status: "Failed", message: "All fields are required" })
+    }
+    const result = await User.create({
+        first_name: body.first_name,
+        last_name: body.last_name,
+        email: body.email,
+        job_title: body.job_title,
+        gender: body.gender
+    })
+        .then((data) => {
+            return res.status(201).json({ status: "Success" })
+            console.log("result :- " , result)
+        })
+        .catch((err) => {
+            return res.status(500).json({ status: "Failed", message: err.message })
+        })
+})
+
 // Rest API Points
-app.get('/api/users', (req, res) => {
-    return res.json(users)
+app.get('/api/users', async (req, res) => {
+    const alluser = await User.find({});
+    return res.json(alluser)
 })
 
 app
     .route('/api/users/:id')
-    .get((req, res) => {
-        const id = Number(req.params.id)
-        const user = users.find(user => user.id === id)
-        return res.json(user)
+    .get(async (req, res) => {
+        const user = await User.findById(req.params.id)
+        if (!user) return res.status(404).json({ status: "Failed", message: "User not found" })
+        return res.json(user);
     })
-    .put((req, res) => {
-        // ToDo : Create a new user
-        return res.json({ status: "Pending" })
+    .patch(async(req, res) => {
+        // We will modify this later from frontend
+        await User.findByIdAndUpdate(req.params.id , {last_name : "Changed"})
+        return res.json({ status: "Success" })
     })
-    .patch((req, res) => {
-        // ToDo : Updating an existing user
-        return res.json({ status: "Pending" })
+    .delete(async (req, res) => {
+        await User.findByIdAndDelete(req.params.id)
+        return res.json({ status: "Success" })
     })
-    .delete((req, res) => {
-        // ToDo : Delete an user
-        return res.json({ status: "Pending" })
-    })
-
-app.post('/api/users/:id', (req, res) => {
-    // ToDo : Create a new user
-    const body = req.body
-    users.push({ ...body, id: users.length + 1 })
-    console.log(body)
-    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err, data) => {
-        return res.json({ status: "Success", id: users.length })
-
-    })
-})
 
 app.listen(PORT, () => {
     console.log(`Server started at PORT ${PORT}`)
