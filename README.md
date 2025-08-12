@@ -76,24 +76,20 @@ Responds to:
 
 ---
 
-# 📘 Lecture 4 – RESTful API with Express, MongoDB (Mongoose) & Custom Middleware
-In this lecture, the REST API is enhanced by connecting to a MongoDB database using Mongoose instead of a local JSON file. We also use custom middleware to log requests and implement full CRUD operations on a users collection.
+# 📘 Lecture 4 – RESTful API with Express, MongoDB (Mongoose) & MVC Architecture
+In this lecture, the application is refactored into an MVC (Model-View-Controller) structure while connecting to a MongoDB database using Mongoose. The project includes custom middleware for logging and full CRUD operations for users.
 
-### 🔧 Features Covered
-- ✅ Mongoose connection to local MongoDB (mongodb://localhost:27017/firtsconnection)
+### 🛠 Features Implemented
 
-- ✅ Mongoose Schema & Model for User collection with:
-- first_name (required)
-- last_name
-- email (required & unique)
-- job_title
-- gender
+- MVC Architecture
+    - Models – Define database schema and interact with MongoDB.
+    - Views – Render HTML responses.
+    - Controllers – Contain route logic for handling requests and responses.
+    - Routes – Organize API endpoints.
+    - Middleware – Reusable functions (logging requests).
 
-- ✅ Custom middleware to log each request with date, time, and path into logs.txt
-
-- ✅ REST API with full CRUD functionality:
-- Get all users (HTML and JSON)
-- Get user by ID
-- Create user with validation
-- Update user by ID
-- Delete user by ID
+- MongoDB Connection via Mongoose.
+- Request Logging Middleware – Logs request date, time, and path in logs.txt.
+- User CRUD API :-
+    - Create, Read, Update, and Delete users.
+    - HTML view for displaying users.
