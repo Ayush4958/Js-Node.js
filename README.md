@@ -76,24 +76,24 @@ Responds to:
 
 ---
 
-# 📘 Lecture 4 – RESTful API using Express and JSON File Storage
+# 📘 Lecture 4 – RESTful API with Express, MongoDB (Mongoose) & Custom Middleware
+In this lecture, the REST API is enhanced by connecting to a MongoDB database using Mongoose instead of a local JSON file. We also use custom middleware to log requests and implement full CRUD operations on a users collection.
 
-This lecture demonstrates building a RESTful API with Express.js, performing CRUD operations on a mock user database stored in MOCK_DATA.json, and implementing a custom logging middleware from scratch.
+### 🔧 Features Covered
+- ✅ Mongoose connection to local MongoDB (mongodb://localhost:27017/firtsconnection)
 
+- ✅ Mongoose Schema & Model for User collection with:
+- first_name (required)
+- last_name
+- email (required & unique)
+- job_title
+- gender
 
-- ✅ Middleware with express.urlencoded() for form data parsing
+- ✅ Custom middleware to log each request with date, time, and path into logs.txt
 
-- ✅ Custom middleware to log every incoming request with:
-
-- Date
-- Time
-- Path accessed
-- Logs stored in logs.txt
-
-- ✅ REST API endpoints:
-
-- GET /api/users – Get all users
-- GET /api/users/:id – Get a single user by ID
-- POST /api/users/:id – Add a new user and save to JSON
-
-- ✅ HTML rendering of user list with template literals
+- ✅ REST API with full CRUD functionality:
+- Get all users (HTML and JSON)
+- Get user by ID
+- Create user with validation
+- Update user by ID
+- Delete user by ID
