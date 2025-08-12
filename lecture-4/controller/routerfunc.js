@@ -40,13 +40,7 @@ const createUser = async (req, res) => {
         job_title: body.job_title,
         gender: body.gender
     })
-        .then((data) => {
-            return res.status(201).json({ status: "Success", ID: result._id })
-            console.log("result :- ", result)
-        })
-        .catch((err) => {
-            return res.status(500).json({ status: "Failed", message: err.message })
-        })
+        return res.status(201).json({ status : "Success" , ID : result._id})
 }
 
 module.exports = {
