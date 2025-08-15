@@ -93,3 +93,28 @@ In this lecture, the application is refactored into an MVC (Model-View-Controlle
 - User CRUD API :-
     - Create, Read, Update, and Delete users.
     - HTML view for displaying users.
+
+---
+
+# 📌 Lecture-5: URL Shortener Project
+In this lecture, I built a URL Shortener service using Node.js, Express.js, and MongoDB.
+The project allows you to:
+
+- Create short URLs from long links.
+- Redirect users from a short URL to the original URL.
+- Track analytics (click count + visit history with timestamps).
+
+### ⚙️ Features
+
+1. Create Short URL
+2. Redirect to Original URL
+3. Get Analytics
+
+### 🛠 Tech Stack
+
+- Node.js – Backend runtime
+- Express.js – Routing and middleware
+- MongoDB + Mongoose – Database and ORM
+- shortid – For generating unique short IDs
+
+--- 
