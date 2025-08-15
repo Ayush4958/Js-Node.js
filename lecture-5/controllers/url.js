@@ -13,7 +13,7 @@ const createShortUrl = async (req , res) =>{
         redirectUrl : body.url,
         visitHistory : [] , 
     })
-    return res.status(200).json({ id : shortID})
+    return res.render('Home' , {id : shortID})
 }
 
 // function for redirecting user to the original url
