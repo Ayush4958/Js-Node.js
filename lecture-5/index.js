@@ -1,8 +1,10 @@
 const express = require('express');
-const port = 2000;
+const cookieparser = require('cookie-parser');
+const port = 5055;
 const path = require('path');
 const app = express();
-const URL = require('./models/urlmodel.js')
+
+const {forLoggedinUser, checkauth} = require('./middleware/auth.js')
 
 // Importing the function for mongoDB connection
 const {createmongoconnection} = require('./connection.js');
@@ -25,10 +27,11 @@ createmongoconnection('mongodb://localhost:27017/urlshorten')
 // In build middleware
 app.use(express.json()); // Now it can parse any JSON Data
 app.use(express.urlencoded({extended : true})) // Now it can parse any form Data
+app.use(cookieparser()); // now it can parse the cookies
 
 // using imported routes
-app.use("/url" , urlRoute)
-app.use("/" , staticRoute)
+app.use("/url" , forLoggedinUser , urlRoute)
+app.use("/" ,  checkauth , staticRoute)
 app.use('/user' , userRoute)
 
 app.listen(port , () => console.log(`Server is running at port ${port}` ));
