@@ -4,7 +4,8 @@ const port = 5055;
 const path = require('path');
 const app = express();
 
-const {forLoggedinUser, checkauth} = require('./middleware/auth.js')
+// importing middlewares
+const {funcForAuthorization , restrictrole} = require('./middleware/auth.js')
 
 // Importing the function for mongoDB connection
 const {createmongoconnection} = require('./connection.js');
@@ -28,10 +29,11 @@ createmongoconnection('mongodb://localhost:27017/urlshorten')
 app.use(express.json()); // Now it can parse any JSON Data
 app.use(express.urlencoded({extended : true})) // Now it can parse any form Data
 app.use(cookieparser()); // now it can parse the cookies
+app.use(funcForAuthorization); // checks the user authorization
 
 // using imported routes
-app.use("/url" , forLoggedinUser , urlRoute)
-app.use("/" ,  checkauth , staticRoute)
+app.use("/url" ,restrictrole(['NORMAL']), urlRoute)
+app.use("/" , staticRoute)
 app.use('/user' , userRoute)
 
 app.listen(port , () => console.log(`Server is running at port ${port}` ));
