@@ -3,7 +3,7 @@ const {getUser} = require('../service/auth')
 
 
 const funcForAuthorization = ( req , res , next) =>{
-    const tokenCookie = req.cookie?.token;
+    const tokenCookie = req.cookies?.token;
     req.user = null;
 
     const token = tokenCookie
