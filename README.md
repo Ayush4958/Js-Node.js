@@ -150,10 +150,14 @@ This project builds a fully functional URL Shortener API with:
 
 ### 🧠 Tech Stack
 
-Node.js
-Express.js
-MongoDB + Mongoose
+Node JS
+
+Express JS
+
+MongoDB
+
 JWT (jsonwebtoken)
+
 shortid (for short URL generation)
 
 --- 
