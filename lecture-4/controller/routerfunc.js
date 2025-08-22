@@ -1,3 +1,4 @@
+//  creating a model in MongoDB
 const User = require('../models/user');
 
 // Function for getting all users
