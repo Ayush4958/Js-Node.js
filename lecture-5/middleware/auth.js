@@ -1,7 +1,7 @@
 const { get } = require('mongoose');
 const {getUser} = require('../service/auth')
 
-
+// middleare for authorization
 const funcForAuthorization = ( req , res , next) =>{
     const tokenCookie = req.cookies?.token;
     req.user = null;
