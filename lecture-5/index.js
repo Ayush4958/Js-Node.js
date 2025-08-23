@@ -32,7 +32,7 @@ app.use(cookieparser()); // now it can parse the cookies
 app.use(funcForAuthorization); // checks the user authorization
 
 // using imported routes
-app.use("/url" ,restrictrole(['NORMAL']), urlRoute)
+app.use("/url" ,restrictrole(['NORMAL' , 'ADMIN']), urlRoute)
 app.use("/" , staticRoute)
 app.use('/user' , userRoute)
 
