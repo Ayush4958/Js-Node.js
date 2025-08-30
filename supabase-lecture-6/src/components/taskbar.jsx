@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { supabase } from '../supabaseclient';
 
@@ -19,16 +19,23 @@ const TaskManager = () => {
     const {error} = await supabase.from("Task").insert([{ title : data.title , description : data.description }]).single(); 
     if (error){
         console.error("Error on adding task" , error.message)
+        return ;
     }
     reset();
   };
 
   const fetchTask = async () => {
-
     const { data , error } = await supabase
     .from("Task")
     .select("*")
     .order("id" , {ascending : false})
+
+    if(error){
+        console.error("Error on adding task" , error.message)
+        return ;
+    }
+
+    setTasks(data);
 
   }
 
@@ -47,6 +54,13 @@ const TaskManager = () => {
       setEditIndex(null);
     }
   };
+
+  useEffect( () =>{
+    fetchTask();
+  } , [])
+
+  console.log(tasks);
+
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-6">
