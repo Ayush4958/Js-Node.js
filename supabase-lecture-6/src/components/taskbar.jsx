@@ -46,13 +46,9 @@ const TaskManager = () => {
     setEditIndex(index);
   };
 
-  const handleDelete = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
-    if (editIndex === index) {
-      reset();
-      setEditIndex(null);
-    }
+  const handleDelete = async (index) => {
+    // Handling the deleting 
+    const {error} = await supabase.from("Task").delete().eq("id" , tasks[index].id)
   };
 
   useEffect( () =>{
