@@ -10,12 +10,10 @@ const TaskManager = () => {
   const onSubmit = async (data) => {
    if (editIndex !== null) {
     const taskToUpdate = tasks[editIndex];
-
     const { error } = await supabase
       .from("Task")
       .update({ title: data.title, description: data.description })
       .eq("id", taskToUpdate.id);
-
     if (error) {
       console.error("Error updating task", error.message);
       return;
@@ -35,10 +33,8 @@ const TaskManager = () => {
       console.error("Error adding task", error.message);
       return;
     }
-
     setTasks([insertedTask, ...tasks]);
   }
-
   reset();
   };
 
