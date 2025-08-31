@@ -8,20 +8,38 @@ const TaskManager = () => {
   const [editIndex, setEditIndex] = useState(null);
 
   const onSubmit = async (data) => {
-    if (editIndex !== null) {
-      const updatedTasks = [...tasks];
-      updatedTasks[editIndex] = data;
-      setTasks(updatedTasks);
-      setEditIndex(null);
-    } else {
-      setTasks([...tasks, data]);
+   if (editIndex !== null) {
+    const taskToUpdate = tasks[editIndex];
+
+    const { error } = await supabase
+      .from("Task")
+      .update({ title: data.title, description: data.description })
+      .eq("id", taskToUpdate.id);
+
+    if (error) {
+      console.error("Error updating task", error.message);
+      return;
     }
-    const {error} = await supabase.from("Task").insert([{ title : data.title , description : data.description }]).single(); 
-    if (error){
-        console.error("Error on adding task" , error.message)
-        return ;
+
+    const updatedTasks = [...tasks];
+    updatedTasks[editIndex] = { ...taskToUpdate, ...data };
+    setTasks(updatedTasks);
+    setEditIndex(null);
+  } else {
+    const { data: insertedTask, error } = await supabase
+      .from("Task")
+      .insert([{ title: data.title, description: data.description }])
+      .single();
+
+    if (error) {
+      console.error("Error adding task", error.message);
+      return;
     }
-    reset();
+
+    setTasks([insertedTask, ...tasks]);
+  }
+
+  reset();
   };
 
   const fetchTask = async () => {
@@ -29,17 +47,14 @@ const TaskManager = () => {
     .from("Task")
     .select("*")
     .order("id" , {ascending : false})
-
     if(error){
         console.error("Error on adding task" , error.message)
         return ;
     }
-
     setTasks(data);
-
   }
 
-  const handleEdit = (index) => {
+  const handleEdit = async (index) => {
     const task = tasks[index];
     setValue('title', task.title);
     setValue('description', task.description);
@@ -48,7 +63,17 @@ const TaskManager = () => {
 
   const handleDelete = async (index) => {
     // Handling the deleting 
-    const {error} = await supabase.from("Task").delete().eq("id" , tasks[index].id)
+    const { error } = await supabase
+    .from("Task")
+    .delete()
+    .eq("id", tasks[index].id)
+
+    if( error ){
+        console.error("Error on deleting task", error.message)
+        return;
+    }
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+        setTasks(updatedTasks);
   };
 
   useEffect( () =>{
