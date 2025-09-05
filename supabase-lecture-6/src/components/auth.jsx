@@ -12,12 +12,14 @@ function Auth() {
 
     if(isSignIn){
         const {user , error} = await supabase.auth.signUp({email , password}) 
+        alert("Sign up Successful")
         if(error){
             console.log("Error in signing up" , error)
         }
     }
     else{
         const {user , error} = await supabase.auth.signInWithPassword({email , password})
+        alert("Sign in Successful")
         if(error){
             console.log("Error in signing in" , error)
         }
