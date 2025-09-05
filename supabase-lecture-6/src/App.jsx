@@ -21,6 +21,7 @@ function App() {
   const logout = async() =>{
     const { error } = await supabase.auth.signOut();
     if(error){
+      alert("You were log out")
       console.log("error while logging out" , error)
     }
   }
